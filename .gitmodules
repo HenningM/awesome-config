@@ -1,0 +1,3 @@
+[submodule "themes/molokai"]
+	path = themes/molokai
+	url = https://github.com/HenningM/awesomewm-theme-molokai.git
