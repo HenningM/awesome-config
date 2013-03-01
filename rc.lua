@@ -281,7 +281,13 @@ globalkeys = awful.util.table.join(
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
-              end)
+              end),
+
+    -- xlock
+    awful.key({ modkey, "Mod1" }, "l", function () awful.util.spawn("xlock") end),
+
+    -- chromium
+    awful.key({ modkey, "Mod1" }, "c", function () awful.util.spawn("chromium-browser") end)
 )
 
 clientkeys = awful.util.table.join(
