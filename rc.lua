@@ -287,7 +287,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Mod1" }, "l", function () awful.util.spawn("xlock") end),
 
     -- chromium
-    awful.key({ modkey, "Mod1" }, "c", function () awful.util.spawn("chromium-browser") end)
+    awful.key({ modkey, "Mod1" }, "c", function () awful.util.spawn("chromium-browser") end),
+
+    -- rox-filer
+    awful.key({ modkey, "Mod1" }, "f", function () awful.util.spawn("rox -n") end)
 )
 
 clientkeys = awful.util.table.join(
