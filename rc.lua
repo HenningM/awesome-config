@@ -9,6 +9,12 @@ require("naughty")
 -- Vicious widgets
 require("vicious")
 
+-- {{{ Startup applications
+os.execute("eval `run_once gnome-keyring-daemon`")
+os.execute("run_once nm-applet")
+os.execute("run_once pidgin")
+-- }}}
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -377,6 +383,8 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
+    { rule = { class = "Pidgin" },
+      properties = { tag = tags[1][3] } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
