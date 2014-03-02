@@ -11,6 +11,7 @@ require("vicious")
 
 -- {{{ Startup applications
 os.execute("eval `run_once gnome-keyring-daemon`")
+os.execute("run_once gnome-screensaver")
 os.execute("run_once nm-applet")
 os.execute("run_once pidgin")
 -- }}}
@@ -290,13 +291,13 @@ globalkeys = awful.util.table.join(
               end),
 
     -- xlock
-    awful.key({ modkey, "Mod1" }, "l", function () awful.util.spawn("xlock") end),
+    awful.key({ modkey, "Mod1" }, "l", function () awful.util.spawn("gnome-screensaver-command -l") end),
 
     -- chromium
     awful.key({ modkey, "Mod1" }, "c", function () awful.util.spawn("chromium-browser") end),
 
     -- rox-filer
-    awful.key({ modkey, "Mod1" }, "f", function () awful.util.spawn("rox -n") end)
+    awful.key({ modkey, "Mod1" }, "f", function () awful.util.spawn("nautilus --no-desktop") end)
 )
 
 clientkeys = awful.util.table.join(
