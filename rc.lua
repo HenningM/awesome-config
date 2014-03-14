@@ -14,6 +14,7 @@ os.execute("eval `run_once gnome-keyring-daemon`")
 os.execute("run_once gnome-screensaver")
 os.execute("run_once nm-applet")
 os.execute("run_once pidgin")
+os.execute("run_once gnome-do")
 -- }}}
 
 -- {{{ Error handling
