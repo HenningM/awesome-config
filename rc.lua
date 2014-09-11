@@ -295,6 +295,10 @@ globalkeys = awful.util.table.join(
 
     -- rox-filer
     awful.key({ modkey, "Mod1" }, "f", function () awful.util.spawn("nautilus --no-desktop") end)
+
+    -- spotify control
+    awful.key({ modkey, "Mod1" }, "n", function () awful.util.spawn("dbus-send --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next") end)
+    awful.key({ modkey, "Mod1" }, "b", function () awful.util.spawn("dbus-send --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous") end)
 )
 
 clientkeys = awful.util.table.join(
