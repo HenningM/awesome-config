@@ -1,3 +1,6 @@
 [submodule "themes/molokai"]
 	path = themes/molokai
 	url = https://github.com/HenningM/awesomewm-theme-molokai.git
+[submodule "lib/tyrannical"]
+	path = tyrannical
+	url = https://github.com/Elv13/tyrannical.git

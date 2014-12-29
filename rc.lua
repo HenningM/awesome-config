@@ -1,8 +1,12 @@
--- Standard awesome library
+-- standard awesome library
 local gears = require("gears")
 local awful = require("awful")
 awful.rules = require("awful.rules")
 require("awful.autofocus")
+
+-- Dynamic tag support
+local tyrannical = require("tyrannical")
+
 -- Widget and layout library
 local wibox = require("wibox")
 -- Theme handling library
@@ -83,11 +87,46 @@ end
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
-tags = {}
-for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
-end
+tyrannical.tags = {
+    {
+        name        = "term",
+        init        = true,
+        exclusive   = false,
+        screen      = {1,2},
+        layout      = awful.layout.suit.tile
+    } ,
+    {
+        name        = "www",
+        init        = true,
+        exclusive   = true,
+        screen      = 1,
+        layout      = awful.layout.suit.tile,
+        class = {
+            "Opera", "Firefox", "Rekonq", "Dillo", "Arora",
+            "chromium-browser", "nightly", "minefield"
+        }
+    } ,
+    {
+        name        = "doc",
+        init        = false,
+        exclusive   = false,
+        layout      = awful.layout.suit.max,
+        class       = {
+            "Assistant", "Okular", "Evince", "EPDFviewer", "xpdf",
+            "Xpdf"
+        }
+    } ,
+}
+
+-- Make the matching clients (by classes) on top of the default layout
+tyrannical.properties.ontop = {
+    "Do"
+}
+tyrannical.properties.intrusive = {
+    "Do"
+}
+
+tyrannical.settings.default_layout = awful.layout.suit.tile
 -- }}}
 
 -- {{{ Wibox
@@ -233,8 +272,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
-
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run({ prompt = "Run Lua code: " },
@@ -243,7 +280,46 @@ globalkeys = awful.util.table.join(
                   awful.util.getdir("cache") .. "/history_eval")
               end),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end)
+    awful.key({ modkey }, "p", function() menubar.show() end),
+
+    -- Tags
+    awful.key({ modkey, }, "d", function () awful.tag.delete() end),
+
+    awful.key({ modkey,           }, "r",
+        function ()
+            awful.prompt.run({ prompt = "New tag name: " },
+            mypromptbox[mouse.screen].widget,
+            function(new_name)
+                if not new_name or #new_name == 0 then
+                    return
+                else
+                    local screen = mouse.screen
+                    local tag = awful.tag.selected(screen)
+                    if tag then
+                        tag.name = new_name
+                    end
+                end
+            end)
+        end),
+
+        awful.key({ modkey,           }, "a",
+            function ()
+                awful.prompt.run({ prompt = "New tag name: " },
+                mypromptbox[mouse.screen].widget,
+                function(new_name)
+                    if not new_name or #new_name == 0 then
+                        return
+                    else
+                        props = {selected = true}
+                        if tyrannical.tags_by_name[new_name] then
+                            props = tyrannical.tags_by_name[new_name]
+                        end
+                        t = awful.tag.add(new_name, props)
+                        awful.tag.viewonly(t)
+                    end
+                end
+                )
+            end)
 )
 
 clientkeys = awful.util.table.join(
