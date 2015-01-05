@@ -302,24 +302,26 @@ globalkeys = awful.util.table.join(
             end)
         end),
 
-        awful.key({ modkey,           }, "a",
-            function ()
-                awful.prompt.run({ prompt = "New tag name: " },
-                mypromptbox[mouse.screen].widget,
-                function(new_name)
-                    if not new_name or #new_name == 0 then
-                        return
-                    else
-                        props = {selected = true}
-                        if tyrannical.tags_by_name[new_name] then
-                            props = tyrannical.tags_by_name[new_name]
-                        end
-                        t = awful.tag.add(new_name, props)
-                        awful.tag.viewonly(t)
+    awful.key({ modkey,           }, "a",
+        function ()
+            awful.prompt.run({ prompt = "New tag name: " },
+            mypromptbox[mouse.screen].widget,
+            function(new_name)
+                if not new_name or #new_name == 0 then
+                    return
+                else
+                    props = {selected = true}
+                    if tyrannical.tags_by_name[new_name] then
+                        props = tyrannical.tags_by_name[new_name]
                     end
+                    t = awful.tag.add(new_name, props)
+                    awful.tag.viewonly(t)
                 end
-                )
             end)
+        end),
+
+    -- Lock screen
+    awful.key({ modkey, "Mod1" }, "l", function () awful.util.spawn("gnome-screensaver-command -l") end)
 )
 
 clientkeys = awful.util.table.join(
