@@ -48,7 +48,7 @@ end
 beautiful.init(awful.util.getdir("config") .. "/themes/molokai/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "roxterm"
+terminal = "gnome-terminal"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -93,7 +93,10 @@ tyrannical.tags = {
         init        = true,
         exclusive   = false,
         screen      = {1,2},
-        layout      = awful.layout.suit.tile
+        layout      = awful.layout.suit.tile,
+        class = {
+            "gnome-terminal", "roxterm"
+        }
     } ,
     {
         name        = "www",
@@ -103,7 +106,8 @@ tyrannical.tags = {
         layout      = awful.layout.suit.tile,
         class = {
             "Opera", "Firefox", "Rekonq", "Dillo", "Arora",
-            "chromium-browser", "nightly", "minefield"
+            "chromium-browser", "nightly", "minefield", "chromium",
+            "Chromium"
         }
     } ,
     {
