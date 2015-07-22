@@ -226,9 +226,9 @@ end
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+    awful.key({ "Control", "Shift"    }, "h",   awful.tag.viewprev       ),
+    awful.key({ "Control", "Shift"    }, "l",  awful.tag.viewnext       ),
+    awful.key({ "Control", "Shift"    }, "j", awful.tag.history.restore),
 
     awful.key({ modkey,           }, "j",
         function ()
