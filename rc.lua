@@ -15,6 +15,9 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 
+-- Awesome utilities
+local util = require("util")
+
 -- Load Debian menu entries
 require("debian.menu")
 
@@ -395,23 +398,22 @@ end
 
 -- Yes, I'm an abuser of tags
 globalkeys = awful.util.table.join(globalkeys,
-    awful.key({ modkey }, "g",
-              function ()
-                  awful.prompt.run({ prompt = "Go to tag: " },
-                  mypromptbox[mouse.screen].widget,
-                  function (idx)
-                      local idxNo = tonumber(idx)
-                      if not idxNo then
-                          return
-                      else
-                          local screen = mouse.screen
-                          local tag = awful.tag.gettags(screen)[idxNo]
-                          if tag then
-                             awful.tag.viewonly(tag)
-                          end
-                      end
-                  end)
-              end))
+    awful.key({modkey,}, "g",
+    function () 
+        local keywords = {}
+        local scr = mouse.screen
+        for _, t in ipairs(awful.tag.gettags(scr)) do -- only the current screen
+            table.insert(keywords, t.name)
+        end
+        awful.prompt.run({prompt = "Find tag: "},
+        mypromptbox[scr].widget,
+        function (t)
+            awful.tag.viewonly(util.tag.name2tag(t, scr))
+        end,
+        function (t, p, n)
+            return awful.completion.generic(t, p, n, keywords)
+        end)
+    end))
 
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
