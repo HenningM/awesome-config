@@ -51,7 +51,7 @@ end
 beautiful.init(awful.util.getdir("config") .. "/themes/molokai/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "gnome-terminal"
+terminal = "x-terminal-emulator"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
