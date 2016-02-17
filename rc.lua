@@ -96,10 +96,7 @@ tyrannical.tags = {
         init        = true,
         exclusive   = false,
         screen      = {1,2},
-        layout      = awful.layout.suit.tile,
-        class = {
-            "gnome-terminal", "roxterm"
-        }
+        layout      = awful.layout.suit.tile
     } ,
     {
         name        = "www",
